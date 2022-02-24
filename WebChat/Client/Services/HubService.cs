@@ -2,16 +2,19 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using WebChat.Shared.Models;
 using System;
+using Microsoft.JSInterop;
 
 namespace WebChat.Client.Services
 {
     public class HubService 
     { 
         private NavigationManager _navigationManager;
+        private IJSRuntime _jsRuntime;
 
-        public HubService(NavigationManager NavigationManager)
+        public HubService(NavigationManager NavigationManager, IJSRuntime jsRuntime)
         {
             _navigationManager = NavigationManager;
+            _jsRuntime = jsRuntime;
         }
 
         // The HubConnection Credentials property is used to specify the access token to use when connecting to the hub.
@@ -34,7 +37,7 @@ namespace WebChat.Client.Services
             // Message received from server
             hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
             {
-                var msg = $"{(String.IsNullOrEmpty(user) ? "" : user + ": ")} {message}";
+                var msg = String.IsNullOrEmpty(user)? $" { message }" : $" { user }: { message }";
                 messages += msg + "\n";
                 NotifyDataChanged();
             });

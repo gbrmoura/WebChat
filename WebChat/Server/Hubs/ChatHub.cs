@@ -4,11 +4,23 @@ namespace WebChat.Server.Hubs
 {
     public class ChatHub : Hub
     {
-        
+        private static Dictionary<string, string> Users = new Dictionary<string, string>();
+
         public override async Task OnConnectedAsync()
         {
-            await SendMessage("", "User connected");
+            string username = Context.GetHttpContext().Request.Query["username"];
+            Users.Add(Context.ConnectionId, username);
+
+            await SendMessage(string.Empty, $"{username} joined the party!");
             await base.OnConnectedAsync();
+        }
+
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            string username = Users.FirstOrDefault(x => x.Key == Context.ConnectionId).Value;
+            await SendMessage(String.Empty, $"{username} left the channel!");
+            Users.Remove(Context.ConnectionId);
         }
 
         public async Task SendMessage(string user, string message)
