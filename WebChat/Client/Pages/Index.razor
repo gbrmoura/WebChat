@@ -1,82 +1,20 @@
 ﻿@page "/"
-@inject NavigationManager NavigationManager
-@implements IAsyncDisposable
+@using WebChat.Client.Shared.Chat;
 
-<PageTitle>SignalR Chat</PageTitle>
-<h3>SignalR Chat</h3>
+@inject Services.HubService hubService;
 
-@if(!IsConnected)
-{
-    <div class="input-group">
-        <input @bind="username" class="form-control" placeholder="Qual seu nome?">
-        <button class="btn btn-primary form-control-append" @onclick="Connect">Conectar</button>
-    </div>
+@if(!hubService.IsConnected)
+{ 
+    <Login></Login>
 }
 else
 {
-    <textarea style="width: 100%; height: 500px;">
-        @messages
-    </textarea>
-    <div class="input-group">
-        <input @bind-value="message" 
-            @bind-value:event="oninput"
-            @onkeyup="HandleInput"
-            class="form-control">
-        <button class="btn btn-primary" @onclick="SendMessage"
-            disabled="@(!IsConnected)">Enviar</button>
-    </div>
+    <TextArea></TextArea>
 }
-
-
 
 @code {
-    private HubConnection? hubConnection;
-    private string messages = String.Empty;
-    private string username = String.Empty;
-    private string message = String.Empty;
-
-
-    private async Task Connect()
-    {
-        hubConnection = new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri($"/chathub?username={username}"))
-            .Build();
-
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
-        {
-            var msg = $"{(String.IsNullOrEmpty(user) ? "" : user + ": ")} {message}";
-            messages += msg + "\n";
-            StateHasChanged();
-        });
-
-        await hubConnection.StartAsync();
+    protected override void OnInitialized() {
+        hubService.OnChange += () => StateHasChanged();
     }
-
-    private async Task SendMessage()
-    {
-        if (hubConnection != null)
-        {
-            await hubConnection.SendAsync("SendMessage", username, message);
-            message = String.Empty;
-        }
-    }
-
-    public async Task HandleInput(KeyboardEventArgs args)
-    {
-        if (args.Key.Equals("Enter"))
-        {
-            await SendMessage();
-        }
-    }
-
-    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
-
-    public async ValueTask DisposeAsync()
-    {
-        if (hubConnection != null)
-        {
-            await hubConnection.DisposeAsync();
-        }
-    }
-
 }
+

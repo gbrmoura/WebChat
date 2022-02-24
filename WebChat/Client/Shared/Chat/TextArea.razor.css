@@ -1,0 +1,26 @@
+.card-size {
+    display: block;
+    margin: auto;
+    margin-top: 5vh;
+    width: 70%;
+}
+
+@media (max-width: 600px) {
+
+    .card-size {
+        display: block;
+        margin: auto;
+        margin-top: 5vh;
+        width: 500px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1200) {
+
+    .card-size {
+        display: block;
+        margin: auto;
+        margin-top: 5vh;
+        width: 800px;
+    }
+}

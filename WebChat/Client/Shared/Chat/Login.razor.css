@@ -1,0 +1,23 @@
+.card-size {
+    display: block;
+    margin: auto;
+    margin-top: 25vh;
+    width: 400px;
+}
+
+@media (max-width: 600px) {
+
+    .card-size {
+        display: block;
+        margin: auto;
+        margin-top: 25vh;
+        width: 300px;
+    }
+}
+
+.title {
+    color: black;
+    text-align: center;
+    font-size: 3rem;
+    padding: 2.5rem 0.3rem;
+}
