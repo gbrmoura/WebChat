@@ -13,7 +13,7 @@ Hoje o chat não guarda registro nenhum de mensagem, isso poderia ser até uma f
 ## Sobre o Projeto
 
 No projeto foi utilizado as seguintes tecnologias:
-    - [C#](https://docs.microsoft.com/pt-br/dotnet/csharp/), como principal linguagem de programação. versão 10.0
-    - [DotNet Core](https://docs.microsoft.com/pt-br/dotnet/), como framework para o desenvolvimento do projeto. versão: 6.0
-    - [Blazor Pages](https://docs.microsoft.com/pt-br/aspnet/core/blazor/?view=aspnetcore-6.0), como componente para criação de paginas Web
-    - [SignalR](https://docs.microsoft.com/pt-br/aspnet/signalr/overview/getting-started/introduction-to-signalr), como componente para comunicação via websockets entre paginas. versã0: 6.0.2
+ - [C#](https://docs.microsoft.com/pt-br/dotnet/csharp/), como principal linguagem de programação. versão 10.0
+ - [DotNet Core](https://docs.microsoft.com/pt-br/dotnet/), como framework para o desenvolvimento do projeto. versão: 6.0
+ - [Blazor Pages](https://docs.microsoft.com/pt-br/aspnet/core/blazor/?view=aspnetcore-6.0), como componente para criação de paginas Web
+ - [SignalR](https://docs.microsoft.com/pt-br/aspnet/signalr/overview/getting-started/introduction-to-signalr), como componente para comunicação via websockets entre paginas. versã0: 6.0.2
